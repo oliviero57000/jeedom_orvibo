@@ -1,0 +1,21 @@
+==== Version 1.3
+
+Ajout d'un refresh sur la page en cas de nouvelles commandes détectées auprès du serveur
+
+Ajout d'un premier support des switchs RF433
+
+==== Version 1.2
+
+Ajout du bouton d'ajout commande
+Ajout doc conf Wifi
+Ajout page health
+
+==== Version 1.1
+
+Différentes corrections
+Ajout de la synchro AllOne
+Ajout du support des prises S20
+
+==== Version 1
+
+Création du plugin

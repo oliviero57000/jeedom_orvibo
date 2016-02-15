@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<info>
+    <id>orvibo</id>
+    <name>Orvibo</name>
+    <licence>AGPL</licence>
+    <author>lunarok</author>
+    <require>2.1</require>
+    <category>automation protocol</category>
+    <hasOwnDeamon>1</hasOwnDeamon>
+</info>
