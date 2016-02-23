@@ -29,6 +29,117 @@ class orvibo extends eqLogic {
     }
   }
 
+  /*public static function deamon_info() {
+    $return = array();
+    $return['log'] = 'orvibo_node';
+    $return['state'] = 'nok';
+    $pid = trim( shell_exec ('ps ax | grep "orvibo/node/orvibo.js" | grep -v "grep" | wc -l') );
+    if ($pid != '' && $pid != '0') {
+      $return['state'] = 'ok';
+    }
+    $return['launchable'] = 'ok';
+    if (config::byKey('nodeGateway', 'orvibo') == 'none' && config::byKey('netgate','orvibo') == '') {
+      $return['launchable'] = 'nok';
+      $return['launchable_message'] = __('Le port n\'est pas configuré', __FILE__);
+    }
+    if (config::byKey('flashing', 'orvibo') == '1') {
+      $return['launchable'] = 'nok';
+      $return['launchable_message'] = __('Flash en cours', __FILE__);
+    }
+    return $return;
+  }
+
+  public static function deamon_start($_debug = false) {
+    self::deamon_stop();
+    $deamon_info = self::deamon_info();
+    if ($deamon_info['launchable'] != 'ok') {
+      throw new Exception(__('Veuillez vérifier la configuration', __FILE__));
+    }
+    log::add('orvibo', 'info', 'Lancement du démon orvibo');
+
+    $inclusion = config::byKey('include_mode', 'orvibo');
+
+    if (config::byKey('nodeGateway', 'orvibo') != 'none' && config::byKey('nodeGateway', 'orvibo') != '') {
+      if (config::byKey('nodeGateway', 'orvibo') == 'acm') {
+        $usbGateway = "/dev/ttyACM0";
+      } else {
+        $usbGateway = jeedom::getUsbMapping(config::byKey('nodeGateway', 'orvibo'));
+      }
+      if ($usbGateway == '' ) {
+        throw new Exception(__('Le port : n\'existe pas', __FILE__));
+      }
+    } else {
+      $usbGateway == 'none';
+    }
+
+    if (config::byKey('netgate','orvibo') != '') {
+      $net = config::byKey('netgate','orvibo');
+    } else {
+      $net = 'none';
+    }
+
+
+    if (config::byKey('jeeNetwork::mode') != 'master') { //Je suis l'esclave
+      $url  = config::byKey('jeeNetwork::master::ip') . '/core/api/jeeApi.php?api=' . config::byKey('jeeNetwork::master::apikey');
+    } else {
+      if (!config::byKey('internalPort')) {
+        $url = config::byKey('internalProtocol') . config::byKey('internalAddr') . config::byKey('internalComplement') . '/core/api/jeeApi.php?api=' . config::byKey('api');
+      } else {
+        $url = config::byKey('internalProtocol') . config::byKey('internalAddr'). ':' . config::byKey('internalPort') . config::byKey('internalComplement') . '/core/api/jeeApi.php?api=' . config::byKey('api');
+      }
+    }
+
+
+    if ($_debug = true) {
+      $log = "1";
+    } else {
+      $log = "0";
+    }
+    $sensor_path = realpath(dirname(__FILE__) . '/../../node');
+    $cmd = 'nice -n 19 nodejs ' . $sensor_path . '/orvibo.js ' . $url . ' ' . $usbGateway . ' "' . $net . '" ' . $inclusion . ' 1 ' . $log;
+
+    log::add('orvibo', 'debug', 'Lancement démon orvibo : ' . $cmd);
+
+    $result = exec('nohup ' . $cmd . ' >> ' . log::getPathToLog('orvibo_node') . ' 2>&1 &');
+    if (strpos(strtolower($result), 'error') !== false || strpos(strtolower($result), 'traceback') !== false) {
+      log::add('orvibo', 'error', $result);
+      return false;
+    }
+
+    $i = 0;
+    while ($i < 30) {
+      $deamon_info = self::deamon_info();
+      if ($deamon_info['state'] == 'ok') {
+        break;
+      }
+      sleep(1);
+      $i++;
+    }
+    if ($i >= 30) {
+      log::add('orvibo', 'error', 'Impossible de lancer le démon orvibo, vérifiez le port', 'unableStartDeamon');
+      return false;
+    }
+    message::removeAll('orvibo', 'unableStartDeamon');
+    log::add('orvibo', 'info', 'Démon orvibo lancé');
+    return true;
+  }
+
+  public static function deamon_stop() {
+    exec('kill $(ps aux | grep "orvibo/node/orvibo.js" | awk \'{print $2}\')');
+    log::add('orvibo', 'info', 'Arrêt du service orvibo');
+    $deamon_info = self::deamon_info();
+    if ($deamon_info['state'] == 'ok') {
+      sleep(1);
+      exec('kill -9 $(ps aux | grep "orvibo/node/orvibo.js" | awk \'{print $2}\')');
+    }
+    $deamon_info = self::deamon_info();
+    if ($deamon_info['state'] == 'ok') {
+      sleep(1);
+      exec('sudo kill -9 $(ps aux | grep "orvibo/node/orvibo.js" | awk \'{print $2}\')');
+    }
+    config::save('gateway', '0',  'orvibo');
+  }*/
+
 
   public static function deamon_info() {
 		$return = array();
@@ -104,6 +215,26 @@ class orvibo extends eqLogic {
     $cron->stop();
     $cron->start();
     orvibo::Discover();
+  }
+
+  public static function dependancy_info() {
+    $return = array();
+    $return['log'] = 'orvibo_dep';
+    $serialport = realpath(dirname(__FILE__) . '/../../node/node_modules/node-orvibo');
+    $request = realpath(dirname(__FILE__) . '/../../node/node_modules/request');
+    $return['progress_file'] = '/tmp/orvibo_dep';
+    if (is_dir($serialport) && is_dir($request)) {
+      $return['state'] = 'ok';
+    } else {
+      $return['state'] = 'nok';
+    }
+    return $return;
+  }
+
+  public static function dependancy_install() {
+    log::add('orvibo','info','Installation des dépéndances nodejs');
+    $resource_path = realpath(dirname(__FILE__) . '/../../resources');
+    passthru('/bin/bash ' . $resource_path . '/nodejs.sh ' . $resource_path . ' > ' . log::getPathToLog('orvibo_dep') . ' 2>&1 &');
   }
 
   public static function modeCommand($mac) {
