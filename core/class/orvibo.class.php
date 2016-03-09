@@ -202,7 +202,7 @@ class orvibo extends eqLogic {
     while(1)
     {
       //Receive some data
-      $r = socket_recvfrom($socksrv, $buf, 512, 0, $remote_ip, $remote_port);
+      $r = socket_recvfrom($socksrv, $buf, 1024, 0, $remote_ip, $remote_port);
       $message=orvibo::binaryToString($buf);
       orvibo::handleMessage($message, $remote_ip);
       log::add('orvibo', 'debug', 'Recu : ' . $message . ' de ' . $remote_ip);
