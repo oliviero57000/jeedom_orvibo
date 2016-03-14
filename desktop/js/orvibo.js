@@ -103,6 +103,18 @@ $('body').on('orvibo::stackData', function (_event,param) {
        addCmdToTable(param);
        $(".eqLogic").animate({ scrollTop: $(".eqLogic").height() });
    });
+   
+$('body').on('orvibo::includeDevice', function (_event,_options) {
+    if (modifyWithoutSave) {
+        $('#div_inclusionAlert').showAlert({message: '{{Un périphérique vient d\'être inclu/exclu. Veuillez réactualiser la page}}', level: 'warning'});
+    } else {
+        if (_options == '') {
+            window.location.reload();
+        } else {
+            window.location.href = 'index.php?v=d&p=orvibo&m=orvibo&id=' + _options;
+        }
+    }
+});
 
 function addCmdToTable(_cmd) {
     if (!isset(_cmd)) {
