@@ -367,6 +367,18 @@ class orvibo extends eqLogic {
     $payload .= orvibo::makePayload(orvibo::HexStringToArray($code));
     log::add('orvibo', 'info', 'Code IR : ' . $payload . ' à ' . $orvibo->getConfiguration('mac'));
     orvibo::SendMessage($payload, $orvibo->getConfiguration('mac'));
+    /*data: {
+      extra: "65000000",
+      // The AllOne flat out refuses to emit IR if these two bytes are the same
+      // as the last time IR was emitted. It's to prevent UDP-related double-blasting
+      randomA: _.padLeft(Math.floor((Math.random() * 255)).toString(16), 2, "0"),
+      randomB: _.padLeft(Math.floor((Math.random() * 255)).toString(16), 2, "0"),
+      // HA HA, OH WOW! This is a doozy. It takes the length of our IR (divided by 2, because bytes)
+      // turns it into a hex string, then uses lodash's "padLeft" to add leading zeroes if necessary. It then splits the string into chunks of two
+      // (like our subscribe() function) before reversing the chunks, flattening any nested arrays, then joins the lot into a single string. UGH!
+      irlength: this.switchEndian(_.padLeft((args.ir.length / 2).toString(16).toUpperCase(), 4, "0")),
+      ir: args.ir
+    }*/
   }
 
   public static function EnterLearningMode($mac) {
@@ -380,26 +392,67 @@ class orvibo extends eqLogic {
 
   public static function EnterRFLearningMode($mac) {
     $orvibo = self::byLogicalId($mac, 'orvibo');
-    $twenties=array(0x20, 0x20, 0x20, 0x20, 0x20, 0x20);
-    $payload = orvibo::makePayload(array(0x64, 0x64, 0x00, 0x18, 0x72, 0x66)).orvibo::makePayload(orvibo::HexStringToArray($orvibo->getConfiguration('mac'))).orvibo::makePayload($twenties).orvibo::makePayload(array(0x01, 0x00, 0x00, 0x00, 0x00, 0x00));
-    log::add('orvibo', 'info', 'Apprentissage RF ' . $payload . ' pour ' . $orvibo->getConfiguration('mac'));
-    orvibo::SendMessage($payload, $orvibo->getConfiguration('mac'));
-    //SendMessage("646400187266"+macAdd+twenties+"010000000000", Devices[macAdd])
+    $rfid = 'abcde';
+    $orviboCmd = new orviboCmd();
+    $orviboCmd->setEqLogic_id($orvibo->getId());
+    $orviboCmd->setEqType('orvibo');
+    $orviboCmd->setName( 'Rfswitch ' . $rfid . ' ON' );
+    $orviboCmd->setConfiguration('order', '01');
+    $orviboCmd->setConfiguration('rfid', $rfid);
+    $orviboCmd->setType('action');
+    $orviboCmd->setSubType('other');
+    $orviboCmd->save();
+    event::add('orvibo::stackData',
+      utils::o2a($orviboCmd)
+    );
+    $orviboCmd = new orviboCmd();
+    $orviboCmd->setEqLogic_id($orvibo->getId());
+    $orviboCmd->setEqType('orvibo');
+    $orviboCmd->setName( 'Rfswitch ' . $rfid . ' OFF' );
+    $orviboCmd->setConfiguration('order', '00');
+    $orviboCmd->setConfiguration('rfid', $rfid);
+    $orviboCmd->setType('action');
+    $orviboCmd->setSubType('other');
+    $orviboCmd->save();
+    event::add('orvibo::stackData',
+      utils::o2a($orviboCmd)
+    );
+    log::add('orvibo', 'info', 'Apprentissage RF ' . $rfid . ' pour ' . $orvibo->getConfiguration('mac'));
+    orvibo::EmitRF($mac, $rfid, '01');
   }
 
-  public static function EmitRF($mac, $rfswitch, $status) {
+  public static function EmitRF($mac, $rfid, $status) {
     $orvibo = self::byLogicalId($mac, 'orvibo');
+    if ($status == '01') {
+      $commande='0x01';
+    } else {
+      $commande='0x00';
+    }
     $twenties=array(0x20, 0x20, 0x20, 0x20, 0x20, 0x20);
-    //  $rnda := fmt.Sprintf("%02s", strconv.FormatInt(int64(rand.Intn(255)), 16)) // Gets a number between 0 and 255, makes it into a hex string, then pads it with zeros
-    // $rndb := fmt.Sprintf("%02s", strconv.FormatInt(int64(rand.Intn(255)), 16)) // Gets a number between 0 and 255, makes it into a hex string, then pads it with zeros
-    //$packet = "6864" + "0000" + "6463" + "accfdeadbeef" + twenties + "3ef5ee0b" + rnda + rndb + rfState + RF
-    //$packetlen = fmt.Sprintf("%04s", strconv.FormatInt(int64(len(packet)/2), 16))
-    //$payload = orvibo::makePayload(array(0x68, 0x64).orvibo::makePayload($packetlen).orvibo::makePayload(array(0x64,0x63).orvibo::makePayload(orvibo::HexStringToArray($orvibo->getConfiguration('mac'))).orvibo::makePayload($twenties).orvibo::makePayload(array(0x3e,0xf5,0xee,0x0b)" + rnda + rndb + $status + $rfswitch
-    $payload = orvibo::makePayload(array(0x64, 0x64, 0x00, 0x18, 0x72, 0x66)).orvibo::makePayload(orvibo::HexStringToArray($orvibo->getConfiguration('mac'))).orvibo::makePayload($twenties).orvibo::makePayload(array(0x01, 0x00, 0x00, 0x00, 0x00, 0x00));
+    $randomBitA = rand(0, 255);
+    $randomBitB = rand(0, 255);
+    $payload = orvibo::makePayload(array(0x68, 0x64, 0x00, 0x17, 0x64, 0x63));
+    $payload .= orvibo::makePayload(orvibo::HexStringToArray($orvibo->getConfiguration('mac')));
+    $payload .= orvibo::makePayload($twenties);
+    $payload .= orvibo::makePayload(array(0x00, 0x00, 0x00, 0x00));//sessionID
+    $payload .= orvibo::makePayload(array($randomBitA, $randomBitB));
+    $payload .= orvibo::makePayload($commande);
+    $payload .= orvibo::makePayload(orvibo::HexStringToArray(array(0x2a, 0x00)));//rfkey
+    $payload .= orvibo::makePayload(orvibo::HexStringToArray($rfid));//rfid
     log::add('orvibo', 'info', 'Apprentissage RF ' . $payload . ' pour ' . $orvibo->getConfiguration('mac'));
     orvibo::SendMessage($payload, $orvibo->getConfiguration('mac'));
-    //SendMessage("646400187266"+macAdd+twenties+"010000000000", Devices[macAdd])
   }
+
+/*
+    data: {
+      sessionID: "00000000"
+      randomA: _.padLeft(Math.floor((Math.random() * 255)).toString(16), 2, "0"),
+      randomB: _.padLeft(Math.floor((Math.random() * 255)).toString(16), 2, "0"),
+      state: args.state ? "01" : "00",
+      rfkey: "2a00",
+      rfid: args.rfid
+    }
+  }*/
 
   public static function SocketState($status,$mac) {
     $orvibo = self::byLogicalId($mac, 'orvibo');
@@ -413,7 +466,18 @@ class orvibo extends eqLogic {
     log::add('orvibo', 'info', 'Socket ' . $payload . ' pour ' . $orvibo->getConfiguration('mac'));
     orvibo::Subscribe($orvibo->getConfiguration('mac'));
     orvibo::SendMessage($payload, $orvibo->getConfiguration('mac'));
+    /* setState turns a socket on or off.
+      data: {
+        // Session ID?
+        blank: "00000000",
+        // Ternary operators are cool, but hard to read.
+        // This one says "if state is true, set state to 01, otherwise, set to 00"
+        state: args.state ? "01" : "00"
+      }*/
   }
+
+
+
 
   // handleMessage parses a message found by CheckForMessages
   public static function handleMessage($message, $addr) {
@@ -711,6 +775,10 @@ class orviboCmd extends cmd {
 
       case 'action' :
       $eqLogic = $this->getEqLogic();
+      if ($this->getConfiguration('rfid', '') != '') {
+        orvibo::EmitRF($eqLogic->getConfiguration('mac'),$this->getConfiguration('rfid'),$this->getConfiguration('order'));
+        return true;
+      }
       if ($eqLogic->getConfiguration('type', '') == 'socket') {
         orvibo::SocketState($this->getConfiguration('order'),$eqLogic->getConfiguration('mac'));
         return true;
