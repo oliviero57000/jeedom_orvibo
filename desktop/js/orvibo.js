@@ -103,7 +103,7 @@ $('body').on('orvibo::stackData', function (_event,param) {
        addCmdToTable(param);
        $(".eqLogic").animate({ scrollTop: $(".eqLogic").height() });
    });
-   
+
 $('body').on('orvibo::includeDevice', function (_event,_options) {
     if (modifyWithoutSave) {
         $('#div_inclusionAlert').showAlert({message: '{{Un périphérique vient d\'être inclu/exclu. Veuillez réactualiser la page}}', level: 'warning'});
@@ -140,8 +140,8 @@ function addCmdToTable(_cmd) {
         tr += '<span class="cmdAttr" data-l1key="configuration" data-l2key="value"></span>';
         tr += '</td>';
         tr += '<td>';
-        tr += '<span><input type="checkbox" data-size="mini" data-label-text="{{Historiser}}" class="cmdAttr bootstrapSwitch" data-l1key="isHistorized" /></span>';
-        tr += '<span><input type="checkbox" data-size="mini" data-label-text="{{Afficher}}" class="cmdAttr bootstrapSwitch" data-l1key="isVisible" /></span>';
+        tr += '<span><label class="checkbox-inline"><input type="checkbox" class="cmdAttr checkbox-inline" data-l1key="isHistorized" checked/>{{Historiser}}</label></span> ';
+        tr += '<span><label class="checkbox-inline"><input type="checkbox" class="cmdAttr checkbox-inline" data-l1key="isVisible" checked/>{{Afficher}}</label></span> ';
         tr += '</td>';
         tr += '<td>';
         if (is_numeric(_cmd.id)) {
@@ -179,7 +179,7 @@ function addCmdToTable(_cmd) {
          tr += '<td>';
 			tr += '<textarea class="cmdAttr form-control input-sm" data-l1key="configuration" data-l2key="order" style="height : 33px;" ' + disabled + ' placeholder="{{Code}}"></textarea><br/>';
         tr += '</td><td>';
-        tr += '<span><input type="checkbox" data-size="mini" data-label-text="{{Afficher}}" class="cmdAttr bootstrapSwitch" data-l1key="isVisible" /></span>';
+        tr += '<span><label class="checkbox-inline"><input type="checkbox" class="cmdAttr checkbox-inline" data-l1key="isVisible" checked/>{{Afficher}}</label></span> ';
         tr += '</td>';
         tr += '<td>';
         if (is_numeric(_cmd.id)) {
