@@ -5,6 +5,6 @@
     <licence>AGPL</licence>
     <author>lunarok</author>
     <require>2.1</require>
-    <category>automation protocol</category>
+    <category>machinecommunication</category>
     <hasOwnDeamon>1</hasOwnDeamon>
 </info>
