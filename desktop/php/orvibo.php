@@ -116,31 +116,33 @@ $eqLogics = eqLogic::byType('orvibo');
             <div class="form-group">
               <label class="col-sm-3 control-label">{{Addr MAC}}</label>
               <div class="col-sm-3">
-                <span class="form-control eqLogicAttr" id="mac" data-l1key="configuration" data-l2key="mac"></span>
+                <span class="eqLogicAttr" id="mac" data-l1key="configuration" data-l2key="mac"></span>
               </div>
+            </div>
 
+            <div class="form-group">
               <label class="col-sm-3 control-label">{{Addr IP}}</label>
               <div class="col-sm-3">
-                <span class="form-control eqLogicAttr" data-l1key="configuration" data-l2key="addr"></span>
+                <span class="eqLogicAttr" data-l1key="configuration" data-l2key="addr"></span>
               </div>
-
             </div>
 
             <div class="form-group">
               <label class="col-sm-3 control-label">{{Type}}</label>
               <div class="col-sm-3">
-                <span class="form-control eqLogicAttr" data-l1key="configuration" data-l2key="type"></span>
+                <span class="eqLogicAttr" data-l1key="configuration" data-l2key="type"></span>
               </div>
             </div>
 
             <div class="form-group">
               <label class="col-sm-3 control-label">{{Der. Activité}}</label>
               <div class="col-sm-3">
-                <span class="form-control eqLogicAttr" data-l1key="configuration" data-l2key="updatetime"></span>
+                <span class="eqLogicAttr" data-l1key="configuration" data-l2key="updatetime"></span>
               </div>
             </div>
 
-            <div class="form-group" id="optionAllone">
+            <div id="optionAllone">
+              <div class="form-group">
               <legend>{{Commandes Infrarouges}}</legend>
               <label class="col-sm-3 control-label">{{Création auto.}}</label>
               <div class="col-sm-3">
@@ -160,9 +162,9 @@ $eqLogics = eqLogic::byType('orvibo');
               <label class="col-sm-3 control-label">{{Apprentissage}}</label>
               <div class="col-sm-3">
                 <a class="btn btn-default" id="bt_mRf433">{{Lancer}}</a>
-
               </div>
             </div>
+          </div>
 
           </fieldset>
         </form>
