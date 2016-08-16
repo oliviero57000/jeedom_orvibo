@@ -131,12 +131,13 @@ $eqLogics = eqLogic::byType('orvibo');
               <div class="col-sm-3">
                 <span class="form-control eqLogicAttr" data-l1key="configuration" data-l2key="type"></span>
               </div>
+            </div>
 
+            <div class="form-group">
               <label class="col-sm-3 control-label">{{Der. Activité}}</label>
               <div class="col-sm-3">
                 <span class="form-control eqLogicAttr" data-l1key="configuration" data-l2key="updatetime"></span>
               </div>
-
             </div>
 
             <div class="form-group" id="optionAllone">
@@ -145,12 +146,16 @@ $eqLogics = eqLogic::byType('orvibo');
               <div class="col-sm-3">
                 <a class="btn btn-success" id="bt_mCmd">{{Activé}}</a>
               </div>
-
+            </div>
+            
+            <div class="form-group">
               <label class="col-sm-3 control-label">{{Apprentissage}}</label>
               <div class="col-sm-3">
                 <a class="btn btn-default" id="bt_mIncl">{{Désactivé}}</a>
               </div>
-            </div><div class="form-group" id="optionAllone2">
+            </div>
+            
+            <div class="form-group" id="optionAllone2">
               <legend>{{Interrupteurs RF433}}</legend>
               <label class="col-sm-3 control-label">{{Apprentissage}}</label>
               <div class="col-sm-3">
