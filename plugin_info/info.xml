@@ -4,7 +4,7 @@
     <name>Orvibo</name>
     <licence>AGPL</licence>
     <author>lunarok</author>
-    <require>2.1</require>
-    <category>machinecommunication</category>
+    <require>2.4</require>
+    <category>devicecommunication</category>
     <hasOwnDeamon>1</hasOwnDeamon>
 </info>
