@@ -143,7 +143,7 @@ $eqLogics = eqLogic::byType('orvibo');
 
             <div id="optionAllone">
               <div class="form-group">
-              <legend>{{Commandes Infrarouges}}</legend>
+              <label class="col-sm-3 control-label">{{Commandes Infrarouges}}</label>
               <label class="col-sm-3 control-label">{{Création auto.}}</label>
               <div class="col-sm-3">
                 <a class="btn btn-success" id="bt_mCmd">{{Activé}}</a>
@@ -158,7 +158,7 @@ $eqLogics = eqLogic::byType('orvibo');
             </div>
             
             <div class="form-group" id="optionAllone2">
-              <legend>{{Interrupteurs RF433}}</legend>
+              <label class="col-sm-3 control-label">{{Interrupteurs RF433}}</label>
               <label class="col-sm-3 control-label">{{Apprentissage}}</label>
               <div class="col-sm-3">
                 <a class="btn btn-default" id="bt_mRf433">{{Lancer}}</a>
