@@ -4,5 +4,6 @@
 	"licence" : "AGPL",
 	"author" : "lunarok",
 	"require" : "2.4",
-	"category" : "devicecommunication"
+	"category" : "devicecommunication",
+	"hasOwnDeamon" : 1
 }
