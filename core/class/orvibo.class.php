@@ -256,10 +256,11 @@ class orvibo extends eqLogic {
         $orviboCmd->setEqType('orvibo');
         $orviboCmd->setIsVisible(1);
         $orviboCmd->setIsHistorized(0);
-        $orviboCmd->setSubType('string');
+        $orviboCmd->setSubType('binary');
         $orviboCmd->setLogicalId('status');
         $orviboCmd->setType('info');
         $orviboCmd->setName( 'Statut' );
+	$orviboCmd->setDisplay('generic_type','LIGHT_STATE');
         $orviboCmd->save();
         $orviboCmd = new orviboCmd();
         $orviboCmd->setEqLogic_id($orvibo->getId());
@@ -269,6 +270,7 @@ class orvibo extends eqLogic {
         $orviboCmd->setConfiguration('order', '01');
         $orviboCmd->setType('action');
         $orviboCmd->setSubType('other');
+	$orviboCmd->setDisplay('generic_type','LIGHT_ON');
         $orviboCmd->save();
         $orviboCmd = new orviboCmd();
         $orviboCmd->setEqLogic_id($orvibo->getId());
@@ -278,10 +280,33 @@ class orvibo extends eqLogic {
         $orviboCmd->setConfiguration('order', '00');
         $orviboCmd->setType('action');
         $orviboCmd->setSubType('other');
+	$orviboCmd->setDisplay('generic_type','LIGHT_OFF');
         $orviboCmd->save();
       }
-    }
-    if ($orvibo->getConfiguration('addr') != $ip) {
+    } else {
+    	if ($type != 'allone') {
+    	  $orviboCmd = $orvibo->getCmd(null, 'status');
+    	  if ( $orviboCmd->getSubType() != 'binary' ) {
+    	    $orviboCmd->setSubType('binary');
+    	    $orviboCmd->save();
+    	  }
+    	  if ( $orviboCmd->getDisplay('generic_type') == "" ) {
+    	    $orviboCmd->setDisplay('generic_type','LIGHT_STATE');
+    	    $orviboCmd->save();
+    	  }			
+    	  $orviboCmd = $orvibo->getCmd(null, 'off');
+    	  if ( $orviboCmd->getDisplay('generic_type') == "" ) {
+    	    $orviboCmd->setDisplay('generic_type','LIGHT_OFF');
+    	    $orviboCmd->save();
+    	  }			
+    	  $orviboCmd = $orvibo->getCmd(null, 'on');
+    	  if ( $orviboCmd->getDisplay('generic_type') == "" ) {
+    	    $orviboCmd->setDisplay('generic_type','LIGHT_ON');
+    	    $orviboCmd->save();
+    	  }			
+	}
+      }
+      if ($orvibo->getConfiguration('addr') != $ip) {
       $orvibo->setConfiguration('addr', $ip);
       $orvibo->save();
     }
@@ -558,7 +583,9 @@ class orvibo extends eqLogic {
       if (is_object($orviboCmd)) {
         $orviboCmd->setConfiguration('value', $statut);
         $orviboCmd->save();
-        $orviboCmd->event($statut);
+        if ($orviboCmd->execCmd() != $orviboCmd_cmd->formatValue($statut)) {
+          $orviboCmd->event($statut);
+        }
       }
       break;
 
