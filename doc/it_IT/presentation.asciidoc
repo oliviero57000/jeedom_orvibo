@@ -1,0 +1,17 @@
+==== Orvibo
+
+Ce plugin permet de piloter deux types de matériel Orvibo : AllOne et S20
+
+
+Les AllOne sont des passerrelles infrarouge.
+
+Le AllOne propose un mode apprentissage qui permet de lui apprendre un code infrarouge.
+
+Il dispose également d'un bouton sur le dessus qui est détecté par le plugin.
+
+Il dispose également d'un émetteur/récepteur RF433 qui permet l'interconnexion avec les Switchs muraux Orvibo (début de support inclu)
+
+
+Les S20 sont des prises Wifi.
+
+Elles disposent d'un retour d'état dans Jeedom et visuel (led bleu/rouge suivant l'état) ainsi qu'un bouton physique en plus de l'API.

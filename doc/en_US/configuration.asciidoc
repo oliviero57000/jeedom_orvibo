@@ -1,0 +1,46 @@
+==== Configuration du plugin
+
+Le plugin ne comporte pas de configuration générale.
+
+Les équipements Orvibo seront automatiquement créer sur découverte toutes les 10mn. Un bouton de relance de la découverte est disponible sur la page de configuration.
+
+==== Configuration wifi de l'Orvibo
+
+Afin de connecter le matériel Orvibo (AllOne, S20 ...) le plus rapidement possible, voici comment procéder.
+
+Il faut faire passer l'objet en mode AP. C'est le mode avec LED bleue clignotante rapidement. Par défaut l'objet non configuré arrive avec la LED rouge clignotante.
+
+Pour passer dans ce mode, il faut garder le bouton appuyé (sur S20 et AllOne)
+
+Une fois qu'on a la LED bleue, sur le téléphone, on va se connecter au réseau wifi de l'appareil. Il est reconnaissable par son nom Wiwo-... (Wiwo-S20 pour le S20, Wiwo-AllOne pour le AllOne)
+
+Là on ouvre Wiwo et on appuie sur le menu en haut à gauche.
+
+On choisit le 'More' (avec les 3 points dans le cercle)
+
+image::../images/doc1.png[Conf du produit]
+
+Et là, dans le menu c'est 'AP Configuration'
+
+image::../images/doc2.png[Conf du produit]
+
+On choisit le Wifi sur lequel on veut mettre l'objet, son mot de passe et on clique sur OK.
+
+On peut voir l'objet redémarrer clignoter pour se connecter et afficher la LED fixe, en même temps dans Wiwo on voit une not 'Device xxxxx has connected ...' et il recharge la page d'accueil avec le nouvel objet.
+
+
+==== Configuration des prises S20
+
+Chaque prise S20 presente est creer comme equipement Jeedom avec 3 commandes : on, off et status
+
+Il n'y a pas besoin de creer d'autres commandes
+
+==== Configuration des AllOne
+
+Chaque AllOne present est creer en equipement Jeedom avec une seule commande par defaut : status
+
+Cette information donne la derniere ativite : code IR recu ou boutton appuye
+
+La page AllOne dispose de deux boutons pour l'apprentissage de code IR. Si les deux sont verts, le AllOne est dans un mode apprentissage et creera des commandes pour chaue nouvelle valeur<
+
+On peut egalement activer l'apprentissage sans la creation, seule l'information status changera

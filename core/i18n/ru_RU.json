@@ -1,0 +1,40 @@
+{
+    "plugins/orvibo/plugin_info/info.xml": {
+        "Plugin pour connecter des AllOne d'Orvibo": "Plugin pour connecter des AllOne d'Orvibo",
+        "Aucune": "Aucune"
+    },
+    "plugins/orvibo/plugin_info/configuration.php": {
+        "Sauvegarde": "Sauvegarde",
+        "La sauvegarde de la configuration redémarre automatiquement le cron et relance une découverte d'équipements": "La sauvegarde de la configuration redémarre automatiquement le cron et relance une découverte d'équipements"
+    },
+    "plugins/orvibo/desktop/php/orvibo.php": {
+        "Ajouter un équipement": "Ajouter un équipement",
+        "Rechercher": "Rechercher",
+        "Mes Orvibo": "Mes Orvibo",
+        "Général": "Général",
+        "Nom Orvibo": "Nom Orvibo",
+        "Nom de l'équipement Orvibo": "Nom de l'équipement Orvibo",
+        "Objet parent": "Objet parent",
+        "Aucun": "Aucun",
+        "Catégorie": "Catégorie",
+        "Activer": "Activer",
+        "Visible": "Visible",
+        "Commentaire": "Commentaire",
+        "Informations": "Informations",
+        "Addr MAC": "Addr MAC",
+        "Addr IP": "Addr IP",
+        "Type de Périphérique": "Type de Périphérique",
+        "Dernière Activité": "Dernière Activité",
+        "Création automatique des commandes": "Création automatique des commandes",
+        "Activé": "Activé",
+        "Apprentissage": "Apprentissage",
+        "Désactivé": "Désactivé",
+        "Orvibo": "Orvibo",
+        "Supprimer": "Supprimer",
+        "Sauvegarder": "Sauvegarder",
+        "Synchroniser": "Synchroniser",
+        "Nom": "Nom",
+        "Valeur": "Valeur",
+        "Paramètres": "Paramètres"
+    }
+}
