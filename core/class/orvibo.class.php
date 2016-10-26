@@ -583,9 +583,7 @@ class orvibo extends eqLogic {
       if (is_object($orviboCmd)) {
         $orviboCmd->setConfiguration('value', $statut);
         $orviboCmd->save();
-        if ($orviboCmd->execCmd() != $orviboCmd_cmd->formatValue($statut)) {
-          $orviboCmd->event($statut);
-        }
+        $orviboCmd->event($statut);
       }
       break;
 
