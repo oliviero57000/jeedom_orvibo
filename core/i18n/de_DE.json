@@ -35,6 +35,23 @@
         "Synchroniser": "Synchronisieren",
         "Nom": "Name",
         "Valeur": "Wert",
-        "Paramètres": "Parameter"
+        "Paramètres": "Parameter",
+        "Configuration avancée": "Configuration avancée",
+        "Equipement": "Equipement",
+        "Commandes": "Commandes",
+        "Type": "Type",
+        "Der. Activité": "Der. Activité",
+        "Commandes Infrarouges": "Commandes Infrarouges",
+        "Création auto.": "Création auto.",
+        "Interrupteurs RF433": "Interrupteurs RF433",
+        "Lancer": "Lancer",
+        "Ajouter une commande": "Ajouter une commande"
+    },
+    "plugins/orvibo/desktop/js/orvibo.js": {
+        "Un périphérique vient d\\'être inclu/exclu. Veuillez réactualiser la page": "Un périphérique vient d\\'être inclu/exclu. Veuillez réactualiser la page",
+        "Historiser": "Historiser",
+        "Afficher": "Afficher",
+        "Code": "Code",
+        "Tester": "Tester"
     }
 }
