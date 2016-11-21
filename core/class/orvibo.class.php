@@ -517,6 +517,10 @@ class orvibo extends eqLogic {
 
     $macStart = strrpos($message, "accf");  // Find where our MAC Address starts
     $mac = substr($message, $macStart, 12); // The MAC address of the socket responding
+	  
+	if (strlen($mac) != 12) {
+		return false;
+	}
 
     log::add('orvibo', 'debug', 'Recu : Commande ' . $commandID . ', Message ' . $message . ' de MAC ' . $mac . ' et IP ' . $addr);
     $orvibo = self::byLogicalId($mac, 'orvibo');
