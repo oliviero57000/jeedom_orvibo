@@ -524,6 +524,9 @@ class orvibo extends eqLogic {
 
     log::add('orvibo', 'debug', 'Recu : Commande ' . $commandID . ', Message ' . $message . ' de MAC ' . $mac . ' et IP ' . $addr);
     $orvibo = self::byLogicalId($mac, 'orvibo');
+    if (!is_object($orvibo)) {
+    	return true;
+    }
 
     switch ($commandID) {
       case "7161": // We've had a response to our broadcast message
