@@ -49,9 +49,9 @@
     },
     "plugins/orvibo/desktop/js/orvibo.js": {
         "Un périphérique vient d\\'être inclu/exclu. Veuillez réactualiser la page": "Un périphérique vient d\\'être inclu/exclu. Veuillez réactualiser la page",
-        "Historiser": "Historiser",
-        "Afficher": "Afficher",
+        "Historiser": "Logging",
+        "Afficher": "Display",
         "Code": "Code",
-        "Tester": "Tester"
+        "Tester": "Test"
     }
 }
