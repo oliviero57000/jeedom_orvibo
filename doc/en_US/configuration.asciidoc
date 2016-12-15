@@ -1,6 +1,6 @@
 ==== The plugin configuration
 
-Le plugin ne comporte pas de configuration générale.
+The plugin does not have general configuration.
 
 Les équipements Orvibo seront automatiquement créer sur découverte toutes les 10mn. Un bouton de relance de la découverte est disponible sur la page de configuration.
 
