@@ -1,6 +1,6 @@
 ==== Orvibo
 
-Ce plugin permet de piloter deux types de matériel Orvibo : AllOne et S20
+This plugin allows to control two types of material Orvibo: AllOne and S20
 
 
 Les AllOne sont des passerrelles infrarouge.
