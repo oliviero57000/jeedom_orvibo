@@ -1,6 +1,6 @@
-==== Configuration du plugin
+==== Plugin Konfiguration
 
-Le plugin ne comporte pas de configuration générale.
+Das Plugin enthält keine allgemeine Konfiguration.
 
 Les équipements Orvibo seront automatiquement créer sur découverte toutes les 10mn. Un bouton de relance de la découverte est disponible sur la page de configuration.
 
@@ -35,7 +35,7 @@ Chaque prise S20 presente est creer comme equipement Jeedom avec 3 commandes : o
 
 Il n'y a pas besoin de creer d'autres commandes
 
-==== Configuration des AllOne
+==== AllOne Konfiguration
 
 Chaque AllOne present est creer en equipement Jeedom avec une seule commande par defaut : status
 

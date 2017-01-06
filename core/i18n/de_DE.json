@@ -48,10 +48,10 @@
         "Ajouter une commande": "Ajouter une commande"
     },
     "plugins/orvibo/desktop/js/orvibo.js": {
-        "Un périphérique vient d\\'être inclu/exclu. Veuillez réactualiser la page": "Un périphérique vient d\\'être inclu/exclu. Veuillez réactualiser la page",
-        "Historiser": "Historiser",
-        "Afficher": "Afficher",
+        "Un périphérique vient d\\'être inclu/exclu. Veuillez réactualiser la page": "Ein Gerät wurde Inkludiert/Exkludiert. Bitte aktualisieren Sie die Seite.",
+        "Historiser": "Archivieren",
+        "Afficher": "Anzeigen",
         "Code": "Code",
-        "Tester": "Tester"
+        "Tester": "Testen"
     }
 }
