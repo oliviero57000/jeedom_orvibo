@@ -6,7 +6,7 @@ Les équipements Orvibo seront automatiquement créer sur découverte toutes les
 
 ==== Configuration wifi de l'Orvibo
 
-Afin de connecter le matériel Orvibo (AllOne, S20 ...) le plus rapidement possible, voici comment procéder.
+Um das Orvibo Gerät (Allone, S20 ...) so schnell wie möglich zu verbinden, gehen Sie wie folgt.
 
 Il faut faire passer l'objet en mode AP. C'est le mode avec LED bleue clignotante rapidement. Par défaut l'objet non configuré arrive avec la LED rouge clignotante.
 

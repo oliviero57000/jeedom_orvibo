@@ -3,7 +3,7 @@
 This plugin allows to control two types of material Orvibo: AllOne and S20
 
 
-Les AllOne sont des passerrelles infrarouge.
+The AllOne are infrared gateways.
 
 Le AllOne propose un mode apprentissage qui permet de lui apprendre un code infrarouge.
 
